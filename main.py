@@ -3,11 +3,10 @@ from fastapi.responses import PlainTextResponse
 import google.generativeai as genai
 import os
 
-# ← ИСПРАВЛЕНО: Только api_key, без api_version
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")  # ← Верни 1.5-flash — она работает в v1beta
 
-app = FastAPI()
+app = FastAPI(Google Sheets API)
 
 @app.get("/lesson", response_class=PlainTextResponse)
 def generate_lesson(topic: str = "Python"):
