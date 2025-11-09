@@ -1,23 +1,20 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
 import google.generativeai as genai
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-2.5-flash")  # ← ЭТА МОДЕЛЬ РАБОТАЕТ
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 app = FastAPI(title="Google Sheets AI Assistant")
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def home():
-    return JSONResponse("""
+    return """
     <h1>Google Sheets AI Lesson Assistant</h1>
     <p>Use: <code>/lesson?topic=Python</code></p>
     <p><a href="/docs">Open Swagger UI</a></p>
-    """)
+    """
 
 @app.get("/lesson")
 def generate_lesson(topic: str):
