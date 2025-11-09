@@ -4,9 +4,13 @@ import google.generativeai as genai
 import os
 
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-1.5-flash")  # ← Верни 1.5-flash — она работает в v1beta
+model = genai.GenerativeModel("gemini-pro")
 
 app = FastAPI()
+
+@app.get("/", response_class=PlainTextResponse)
+def root():
+    return "API is running! Go to /lesson?topic=Python"
 
 @app.get("/lesson", response_class=PlainTextResponse)
 def generate_lesson(topic: str = "Python"):
