@@ -10,9 +10,14 @@ app = FastAPI()
 
 @app.get("/lesson", response_class=PlainTextResponse)
 def generate_lesson(topic: str = "Python"):
-    prompt = f"Create a lesson plan for: {topic}. Output in CSV format, one line, no headers: Title,Objective,Duration,Materials,Steps,MCQ1,MCQ2,MCQ3,MCQ4,MCQ5"
+    prompt = f"""
+    Create a lesson plan for: {topic}
+    Output in CSV format, one line, no headers, no quotes:
+    Title,Objective,Duration,Materials,Steps,MCQ1,MCQ2,MCQ3,MCQ4,MCQ5
+    """
     try:
         resp = model.generate_content(prompt)
+        # Возвращаем только текст, без JSON
         return resp.text.strip()
     except Exception as e:
         return f"Error,{str(e)}"
