@@ -9,11 +9,10 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 app = FastAPI()
 
 @app.get("/lesson", response_class=PlainTextResponse)
-def generate_lesson(topic: str):
-    prompt = f"""
-    Create a lesson plan for: {topic}
-    Output in CSV format (no headers, one line):
-    Title,Objective,Duration,Materials,Steps,"MCQ1: A) B) C) D) Answer: A"
-    """
-    resp = model.generate_content(prompt)
-    return resp.text.strip()
+def generate_lesson(topic: str = "Python"):
+    prompt = f"Create a lesson plan for: {topic}. Output in CSV format, one line, no headers: Title,Objective,Duration,Materials,Steps,MCQ1,MCQ2,MCQ3,MCQ4,MCQ5"
+    try:
+        resp = model.generate_content(prompt)
+        return resp.text.strip()
+    except Exception as e:
+        return f"Error,{str(e)}"
