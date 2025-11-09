@@ -11,15 +11,20 @@ model = genai.GenerativeModel("gemini-2.5-flash")  # ← ЭТА МОДЕЛЬ Р�
 
 app = FastAPI(title="Google Sheets AI Assistant")
 
+@app.get("/")
+def home():
+    return JSONResponse("""
+    <h1>Google Sheets AI Lesson Assistant</h1>
+    <p>Use: <code>/lesson?topic=Python</code></p>
+    <p><a href="/docs">Open Swagger UI</a></p>
+    """)
+
 @app.get("/lesson")
 def generate_lesson(topic: str):
     prompt = f"""
     Create a lesson plan for: {topic}
     Output in CSV format (no headers):
-    Title,Objective,Duration,Materials,Steps,5 MCQ
-
-    Example:
-    Python Basics,Learn variables and loops,60 min,Computer,1. Print,2. Variables,3. Loops,What is print()?,A) Loop,B) Output,C) Input,D) Error,Answer: B
+    Title,Objective,Duration,Materials,Steps,5 MCQ with answers
     """
     resp = model.generate_content(prompt)
     return JSONResponse(content={"csv": resp.text})
