@@ -3,9 +3,9 @@ from fastapi.responses import PlainTextResponse
 import google.generativeai as genai
 import os
 
-# ← ИСПРАВЛЕНО: v1 + новая модель
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"), api_version="v1")
-model = genai.GenerativeModel("gemini-2.0-flash-latest")  # ← Работает в 2025
+# ← ИСПРАВЛЕНО: Только api_key, без api_version
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("gemini-1.5-flash")  # ← Верни 1.5-flash — она работает в v1beta
 
 app = FastAPI()
 
