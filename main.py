@@ -6,7 +6,7 @@ import os
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")  # ← Верни 1.5-flash — она работает в v1beta
 
-app = FastAPI(Google Sheets API)
+app = FastAPI()
 
 @app.get("/lesson", response_class=PlainTextResponse)
 def generate_lesson(topic: str = "Python"):
