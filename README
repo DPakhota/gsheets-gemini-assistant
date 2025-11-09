@@ -1,0 +1,14 @@
+# Google Sheets AI Lesson Assistant
+
+**Live API**: https://gsheets-gemini.onrender.com/docs
+**Live Sheet Demo**: [View Sheet](https://docs.google.com/spreadsheets/d/...)
+
+## How to use
+1. Open Sheet
+2. Change `topic=...` in URL
+3. Get lesson plan + 5 MCQ in cells
+
+## Tech
+- FastAPI
+- Gemini 1.5 Flash
+- Render.com
